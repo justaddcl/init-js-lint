@@ -51,10 +51,11 @@ const npmInstall = (peerDependencies, pkgVersion) => {
   }
   console.log();
 
-  console.log(pkgsToInstall.join(' '));
+  // debug which packages will be installed
+  // console.log(pkgsToInstall.join(' '));
 
   // npm i command
-  // shell.exec(`npm i -D pkgsToInstall.join(' '));
+  shell.exec(`npm i -D ${pkgsToInstall.join(' ')}`);
 }
 
 getPeerDeps(airbnbConfigPkg, npmInstall);
