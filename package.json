@@ -1,0 +1,15 @@
+{
+  "name": "@justaddcl/init-js-lint",
+  "version": "1.0.0",
+  "description": "A simple script to help initialize linting for js projects",
+  "author": "@justaddcl",
+  "license": "ISC",
+  "bin": {
+    "init-js-lint": "bin/init-lint.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^4.1.0",
+    "shelljs": "^0.8.4"
+  }
+}
