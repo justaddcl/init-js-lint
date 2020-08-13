@@ -4,6 +4,22 @@
   "description": "A simple script to help initialize linting for js projects",
   "author": "@justaddcl",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justaddcl/init-js-lint"
+  },
+  "keywords": [
+    "install",
+    "peer dependencies",
+    "automatically",
+    "npm",
+    "eslint",
+    "prettier",
+    "airbnb",
+    "react",
+    "lint",
+    "javascript"
+  ],
   "bin": {
     "init-js-lint": "bin/init-lint.js"
   },
