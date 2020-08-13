@@ -1,6 +1,6 @@
 {
   "name": "@justaddcl/init-js-lint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple script to help initialize linting for js projects",
   "author": "@justaddcl",
   "license": "ISC",
