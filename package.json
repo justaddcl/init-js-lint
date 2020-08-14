@@ -24,7 +24,7 @@
     "javascript"
   ],
   "bin": {
-    "init-js-lint": "bin/init-lint.js"
+    "init-js-lint": "lib/cli.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
