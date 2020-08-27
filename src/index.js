@@ -1,7 +1,6 @@
-import "@babel/polyfill";
 import axios from 'axios';
-import chalk from 'chalk';
 import packages from './packages';
+import { logPkgs, logError } from './logging'
 
 const npmInstall = (airbnbConfigPkg, peerDependencies, pkgVersion) => {
   // extract peer dependencies package names
@@ -14,27 +13,7 @@ const npmInstall = (airbnbConfigPkg, peerDependencies, pkgVersion) => {
   const pkgsToInstall = [`${airbnbConfigPkg}@${pkgVersion}`].concat(peerDeps.map(dep => `${dep}@latest`)).concat(userPkgs);
 
   // log packages to be installed
-  console.log('NPM will install the following packages: \n');
-  console.log(chalk.bgWhite.black(` ESLint Airbnb config: `));
-  console.log(chalk.green(`${airbnbConfigPkg}@${pkgVersion}`));
-  console.log();
-  console.log(chalk.bgWhite.black(` ESLint Airbnb config peer dependencies: `));
-  console.log(chalk.green(peerDeps.join('\n')));
-  console.log();
-  console.log(chalk.bgWhite.black(' User-specified packages: '));
-  if (packages && packages.length > 0) {
-    console.log(chalk.green(packages.join('\n')));
-  } else {
-    console.log(chalk.green('No additional packages specified'));
-  }
-  console.log();
-
-  // debug which packages will be installed
-  // console.log(pkgsToInstall.join(' '));
-
-  // npm i command
-  // shell.exec(`npm i -D ${pkgsToInstall.join(' ')}`);
-  // shell.exec(`echo ${pkgsToInstall.join(' ')}`);
+  logPkgs({ name: airbnbConfigPkg, verson: pkgVersion }, peerDeps, packages);
   return pkgsToInstall;
 }
 
@@ -53,7 +32,7 @@ const getPeerDeps = async (pkgName) => {
     } = response;
     return npmInstall(pkgName, peerDependencies, version);
   } catch (error) {
-    console.error(chalk.red(error));
+    logError(error);
   }
 };
 
