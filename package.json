@@ -9,7 +9,8 @@
     "url": "https://github.com/justaddcl/init-js-lint"
   },
   "scripts": {
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "dump": "rm -rf node_modules && npm i"
   },
   "keywords": [
     "install",
