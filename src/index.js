@@ -36,4 +36,4 @@ const getPeerDeps = async (pkgName) => {
   }
 };
 
-module.exports = { getPeerDeps };
+export { getPeerDeps };
