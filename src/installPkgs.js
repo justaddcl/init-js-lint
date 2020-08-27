@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { getPeerDeps } from './index';
-import { logSuccess, logError } from './logging'
+import { logSuccess, logError } from './logging';
 
 const installPkgs = async (airbnbConfigPkg) => {
   // fetch and log packages to be installed
@@ -33,6 +33,6 @@ const installPkgs = async (airbnbConfigPkg) => {
     console.log(stdout);
     logSuccess('Done.');
   });
-}
+};
 
 export default installPkgs;
