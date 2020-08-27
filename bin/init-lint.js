@@ -2,7 +2,7 @@
 const shell = require("shelljs");
 const axios = require('axios');
 const chalk = require('chalk');
-const packages = require('../packages');
+const packages = require('../src/packages');
 
 const airbnbConfigPkg = process.argv[2] === 'react' ? 'eslint-config-airbnb' : 'eslint-config-airbnb-base';
 
