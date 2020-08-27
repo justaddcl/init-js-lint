@@ -13,7 +13,7 @@ const npmInstall = (airbnbConfigPkg, peerDependencies, pkgVersion) => {
   const pkgsToInstall = [`${airbnbConfigPkg}@${pkgVersion}`].concat(peerDeps.map(dep => `${dep}@latest`)).concat(userPkgs);
 
   // log packages to be installed
-  logPkgs({ name: airbnbConfigPkg, verson: pkgVersion }, peerDeps, packages);
+  logPkgs({ name: airbnbConfigPkg, version: pkgVersion }, peerDeps, packages);
   return pkgsToInstall;
 }
 
