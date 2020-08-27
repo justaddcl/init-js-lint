@@ -1,12 +1,16 @@
 {
   "name": "@justaddcl/init-js-lint",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple script to help initialize linting for js projects",
   "author": "@justaddcl",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/justaddcl/init-js-lint"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "dump": "rm -rf node_modules && npm i"
   },
   "keywords": [
     "install",
@@ -20,12 +24,24 @@
     "lint",
     "javascript"
   ],
+  "main": "lib/index.js",
   "bin": {
-    "init-js-lint": "bin/init-lint.js"
+    "lint-i": "lib/cli.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "chalk": "^4.1.0",
-    "shelljs": "^0.8.4"
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/polyfill": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.1"
   }
 }
