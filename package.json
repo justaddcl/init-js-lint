@@ -1,6 +1,6 @@
 {
   "name": "@justaddcl/init-js-lint",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A simple script to help initialize linting for js projects",
   "author": "@justaddcl",
   "license": "ISC",
@@ -24,8 +24,9 @@
     "lint",
     "javascript"
   ],
+  "main": "lib/index.js",
   "bin": {
-    "init-js-lint": "lib/cli.js"
+    "lint-i": "lib/cli.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
