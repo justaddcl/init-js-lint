@@ -17,11 +17,11 @@ const logPkgs = (airbnbConfig, peerDeps, packages) => {
   console.log();
 };
 
-const logSuccess = msg => {
+const logSuccess = (msg) => {
   console.log(chalk.green(msg));
-}
+};
 
-const logError = error => {
+const logError = (error) => {
   console.error(chalk.bgRed(error));
 };
 
