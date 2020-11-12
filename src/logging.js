@@ -1,28 +1,66 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
-const logPkgs = (airbnbConfig, peerDeps, packages) => {
-  console.log('NPM will install the following packages: \n');
-  console.log(chalk.bgWhite.black(` ESLint Airbnb config: `));
-  console.log(chalk.green(`${airbnbConfig.name}@${airbnbConfig.version}`));
+/**
+ * @function logInfo logs to console with info styling
+ * @param {string} message message to log
+ * @param {string} [color = 'cyan'] log style color (optional, defaults to cyan)
+ */
+const logInfo = (msg, color = 'cyan') => console.log(chalk[color](msg));
+
+/**
+ * @function logSuccess logs to console with success styling
+ * @param {string} message message to log
+ */
+const logSuccess = (msg) => console.log(chalk.green(msg));
+
+/**
+ * @function logWarning logs to console with warning styling
+ * @param {string} message message to log
+ */
+const logWarning = (warning) => console.warn(chalk.yellow(warning));
+
+/**
+ * @function logError logs to console with error styling
+ * @param {string} message message to log
+ */
+const logError = (error) => console.error(chalk.red(error));
+
+/**
+ * @function logHeader logs to console with heaader styling
+ * @param {string} message message to log
+ */
+const logHeader = (header) => console.error(chalk.bgWhite.black(header));
+
+/**
+ * @function logPkgs
+ * @param {Object[]} pkgGroups - the group of packages to log
+ * @param {string} pkgGroups[].name - name of package group
+ * @param {(string[]|string)} pkgGroup[].pkgs - packages that make up the group
+ */
+const logPkgs = (pkgGroups) => {
+  console.log('NPM will install the following packages: @latest');
   console.log();
-  console.log(chalk.bgWhite.black(` ESLint Airbnb config peer dependencies: `));
-  console.log(chalk.green(peerDeps.join('\n')));
-  console.log();
-  console.log(chalk.bgWhite.black(' User-specified packages: '));
-  if (packages && packages.length > 0) {
-    console.log(chalk.green(packages.join('\n')));
-  } else {
-    console.log(chalk.green('No additional packages specified'));
-  }
+  pkgGroups.forEach((group) => {
+    logHeader(` ${group.name}: `);
+    if (group.pkgs && group.pkgs.length > 0) {
+      if (typeof group.pkgs === 'string') {
+        logInfo(group.pkgs);
+      } else {
+        logInfo(group.pkgs.join('\n'));
+      }
+      console.log();
+    } else {
+      console.log('No packages');
+    }
+  });
   console.log();
 };
 
-const logSuccess = (msg) => {
-  console.log(chalk.green(msg));
+module.exports = {
+  logInfo,
+  logSuccess,
+  logWarning,
+  logError,
+  logHeader,
+  logPkgs,
 };
-
-const logError = (error) => {
-  console.error(chalk.bgRed(error));
-};
-
-export { logPkgs, logSuccess, logError };
