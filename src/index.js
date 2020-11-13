@@ -27,7 +27,10 @@ console.log();
 
 fetchPeerDeps(airbnbConfigPkg)
   .then((data) => {
-    const { pkgData: { name, version }, peerDeps } = data;
+    const {
+      pkgData: { name, version },
+      peerDeps,
+    } = data;
 
     logPkgs([
       {
