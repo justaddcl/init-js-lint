@@ -99,9 +99,11 @@ const fetchPeerDeps = async (pkgName) => {
     };
   } catch (error) {
     const fetchError = new Error();
-    fetchError.name = `Failed to fetch peer dependencies for ${pkgName}.`;
+    fetchError.name = `Failed to fetch peer dependencies for ${pkgName}`;
     if (error.response) {
-      fetchError.message = `${error.response.status} ${error.response.data.code} - ${error.response.data.message}: ${error.config.url}`;
+      fetchError.message = `${error.response.status}${
+        error.response.data?.code ? ` ${error.response.data} - ` : ''
+      }${error.response.data?.message || ''}: ${error.config.url}`;
     }
     throw fetchError;
   }
@@ -114,7 +116,7 @@ const fetchPeerDeps = async (pkgName) => {
  * @param {boolean} [options.dev = false] if npm should install as dev dependency
  */
 const install = (pkgs = [], { dev = false } = {}) => {
-  if (pkgs.length > 0){
+  if (pkgs.length > 0) {
     console.log(`npm i ${dev ? '-D ' : ''}${pkgs.join(' ')}`);
     const installArgs = ['i'];
     if (dev) installArgs.push('-D');
@@ -129,11 +131,13 @@ const install = (pkgs = [], { dev = false } = {}) => {
     });
 
     npmi.stderr.on('data', (error) => {
-      logError(error)
+      logError(error);
     });
 
     npmi.on('close', (code) => {
-      code === 0 ? logSuccess('Done.') : logError(`Exited npm install process with code ${code}`);
+      code === 0
+        ? logSuccess('Done.')
+        : logError(`Exited npm install process with code ${code}`);
     });
   }
 };
