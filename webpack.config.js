@@ -4,14 +4,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const { NODE_ENV } = process.env;
-const filename = `index${NODE_ENV === 'production' ? '.min' : ''}.js`;
 
 module.exports = {
   mode: NODE_ENV || 'development',
   entry: './src/index.js',
   devtool: 'source-map',
   output: {
-    filename,
+    filename: 'index.min.js',
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
   },
