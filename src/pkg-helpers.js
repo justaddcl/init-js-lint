@@ -47,15 +47,26 @@ const versionPkg = (name, version = 'latest') => {
  * @returns {string[]} - array of packages names and versions
  */
 const createPkgList = (...pkgGroups) => {
-  return pkgGroups.map(group => {
-    const [pkgs, version] = group;
+  if (pkgGroups.length === 0) {
+    throw new Error(
+      'Error creating package list: no packages provided to list',
+    );
+  }
+  return pkgGroups
+    .map((group) => {
+      const [pkgs, version] = group;
+      if (!pkgs) {
+        throw new Error(
+          'Error creating package list: package group did not contain any packages',
+        );
+      }
 
-    if (typeof pkgs === 'string') {
-      return versionPkgs(pkgs, version);
-    } else {
-      return pkgs.map(pkg => versionPkgs(pkg, version));
-    }
-  }).flat();
+      if (typeof pkgs === 'string') {
+        return versionPkg(pkgs, version);
+      }
+      return pkgs.map((pkg) => versionPkg(pkg, version));
+    })
+    .flat();
 };
 
 /**
