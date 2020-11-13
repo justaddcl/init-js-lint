@@ -1,16 +1,18 @@
 {
+  "parser": "babel-eslint",
   "extends": ["airbnb-base", "prettier"],
   "env": {
-    "node": true,
     "browser": true,
-    "es2020": true
+    "node": true,
+    "es2020": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": 2020
   },
   "plugins": ["prettier"],
   "rules": {
-    "no-console": ["allow"],
+    "no-console": 0,
     "no-plusplus": [
       "error",
       {
@@ -20,7 +22,8 @@
     "no-unused-expressions": [
       2,
       {
-        "allowTaggedTemplates": true
+        "allowTaggedTemplates": true,
+        "allowTernary": true
       }
     ],
     "prettier/prettier": [

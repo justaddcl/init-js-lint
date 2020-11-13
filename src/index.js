@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const chalk = require('chalk');
 const { fetchPeerDeps, createPkgList, install } = require('./pkg-helpers');
 const { logPkgs, logError, logWarning } = require('./logging');
