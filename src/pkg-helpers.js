@@ -1,7 +1,24 @@
 const { spawn } = require('child_process');
 const axios = require('axios');
-const userPkgs = require('./user-packages');
-const { logSuccess, logError, logWarning, logPkgs, logInfo } = require('./logging');
+const semverValid = require('semver/functions/valid');
+const semverValidRange = require('semver/ranges/valid');
+const { logSuccess, logError } = require('./logging');
+
+/**
+ * @function validateVersion
+ * @param {string} version
+ * @returns {boolean} if given version is a valid semver version
+ */
+const validateVersion = (version) => {
+  if (!version) {
+    throw new Error('Cannot validate semver: no version provided');
+  }
+  return !!(
+    semverValid(version) ||
+    semverValidRange(version) ||
+    version === 'latest'
+  );
+};
 
 /**
  * @function versionPkg
@@ -102,6 +119,7 @@ const install = (pkgs = [], { dev = false } = {}) => {
 };
 
 module.exports = {
+  validateVersion,
   createPkgList,
   fetchPeerDeps,
   install,
