@@ -26,9 +26,18 @@ const validateVersion = (version) => {
  * @param {string} [version = '@latest'] desired package version, defaults to latest
  * @returns {string} npm package with version
  */
-const versionPkgs = (name, version = '@latest') => {
-  const exactVersion = version[0].match(/\d/);
-  return `${name}${exactVersion ? '@' : ''}${version}`;
+const versionPkg = (name, version = 'latest') => {
+  if (!name) {
+    throw new Error('Package versioning error: package name not provided');
+  }
+
+  if (!validateVersion(version)) {
+    throw new Error(
+      'Package versioning error: invalid syntax used for version',
+    );
+  }
+
+  return `${name}@${version}`;
 };
 
 /**
@@ -120,6 +129,7 @@ const install = (pkgs = [], { dev = false } = {}) => {
 
 module.exports = {
   validateVersion,
+  versionPkg,
   createPkgList,
   fetchPeerDeps,
   install,
