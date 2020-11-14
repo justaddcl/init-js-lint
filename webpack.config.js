@@ -14,6 +14,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
   },
+  module: {
+    rules: [
+      { test: /.js$/, loader: 'shebang2-loader' },
+    ],
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true }),
