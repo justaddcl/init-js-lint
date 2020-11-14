@@ -23,7 +23,7 @@ const validateVersion = (version) => {
 /**
  * @function versionPkg
  * @param {string} name npm package name
- * @param {string} [version = '@latest'] desired package version, defaults to latest
+ * @param {string} [version = 'latest'] desired package version, defaults to latest
  * @returns {string} npm package with version
  */
 const versionPkg = (name, version = 'latest') => {

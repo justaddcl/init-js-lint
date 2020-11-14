@@ -47,8 +47,8 @@ fetchPeerDeps(airbnbConfigPkg)
 
     const pkgs = createPkgList(
       [name, version],
-      [peerDeps, '@latest'],
-      [userPkgs, '@latest'],
+      [peerDeps, 'latest'],
+      [userPkgs, 'latest'],
     );
 
     if (pkgs?.length > 0) {
