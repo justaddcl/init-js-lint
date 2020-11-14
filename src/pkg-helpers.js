@@ -102,7 +102,7 @@ const fetchPeerDeps = async (pkgName) => {
     fetchError.name = `Failed to fetch peer dependencies for ${pkgName}`;
     if (error.response) {
       fetchError.message = `${error.response.status}${
-        error.response.data?.code ? ` ${error.response.data} - ` : ''
+        error.response.data?.code ? ` ${error.response.data.code} - ` : ''
       }${error.response.data?.message || ''}: ${error.config.url}`;
     }
     throw fetchError;
