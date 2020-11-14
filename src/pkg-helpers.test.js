@@ -20,6 +20,7 @@ describe('validateVersion function', () => {
     expect(validateVersion('1.0.17')).toBe(true);
     expect(validateVersion('v1.0.17')).toBe(true);
     expect(validateVersion('=1.0.17')).toBe(true);
+    expect(validateVersion('latest')).toBe(true);
   });
 
   it('should return true for a valid version range', () => {
