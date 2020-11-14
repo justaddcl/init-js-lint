@@ -33,7 +33,7 @@ const versionPkg = (name, version = 'latest') => {
 
   if (!validateVersion(version)) {
     throw new Error(
-      'Package versioning error: invalid syntax used for version',
+      `Package versioning error: invalid syntax used for version: ${version}`,
     );
   }
 

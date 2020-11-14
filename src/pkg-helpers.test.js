@@ -44,10 +44,11 @@ describe('versionPkg function', () => {
   });
 
   it('should throw an error if invalid version syntax is given', () => {
+    const version = 'bugger';
     const invalidVersion = new Error(
-      'Package versioning error: invalid syntax used for version',
+      `Package versioning error: invalid syntax used for version: ${version}`,
     );
-    expect(() => versionPkg('bslint', 'bugger')).toThrowError(invalidVersion);
+    expect(() => versionPkg('bslint', version)).toThrowError(invalidVersion);
   });
 
   it('should return a string', () => {
