@@ -1,16 +1,22 @@
 {
   "name": "@justaddcl/init-js-lint",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple script to help initialize linting for js projects",
   "author": "@justaddcl",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/justaddcl/init-js-lint"
   },
   "scripts": {
-    "build": "babel src -d lib",
-    "dump": "rm -rf node_modules && npm i"
+    "build": "npm run build:umd && npm run build:commonjs",
+    "build:umd": "webpack",
+    "build:commonjs": "babel src -d scripts",
+    "dump": "rm -rf node_modules && npm i",
+    "prepare": "npm run build:umd",
+    "test": "npm run lint && jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src --ext .js"
   },
   "keywords": [
     "install",
@@ -24,24 +30,37 @@
     "lint",
     "javascript"
   ],
-  "main": "lib/index.js",
-  "bin": {
-    "lint-i": "lib/cli.js"
-  },
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
   "dependencies": {
+    "@babel/runtime": "^7.12.5",
     "axios": "^0.19.2",
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/plugin-transform-regenerator": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/polyfill": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
-    "eslint": "^7.7.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.1"
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2",
+    "shebang2-loader": "^1.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^2.5.2"
   }
 }
