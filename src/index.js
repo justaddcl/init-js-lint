@@ -1,41 +1,66 @@
-import axios from 'axios';
-import packages from './packages';
-import { logPkgs, logError } from './logging';
+#!/usr/bin/env node
+const chalk = require('chalk');
+const { fetchPeerDeps, createPkgList, install } = require('./pkg-helpers');
+const { logPkgs, logError, logWarning } = require('./logging');
+const userPkgs = require('./user-packages');
 
-const npmInstall = (airbnbConfigPkg, peerDependencies, pkgVersion) => {
-  // extract peer dependencies package names
-  const peerDeps = Object.keys(peerDependencies);
-  // list any user-specified packages to install - if any
-  const userPkgs =
-    packages && packages.length > 0
-      ? packages.map((pkg) => `${pkg}@latest`)
-      : [];
-  // create list of all packages to install
-  const pkgsToInstall = [`${airbnbConfigPkg}@${pkgVersion}`]
-    .concat(peerDeps.map((dep) => `${dep}@latest`))
-    .concat(userPkgs);
+// TODO: add help text
+// TODO: add ability to download .eslintrc file
 
-  // log packages to be installed
-  logPkgs({ name: airbnbConfigPkg, version: pkgVersion }, peerDeps, packages);
-  return pkgsToInstall;
-};
+// determine which airbnb config based on user input
+const airbnbConfigPkg =
+  process.argv[2] === 'react'
+    ? 'eslint-config-airbnb'
+    : 'eslint-config-airbnb-base';
 
-const getPeerDeps = async (pkgName) => {
-  try {
-    const response = await axios.get(
-      `https://api.npms.io/v2/package/${pkgName}`
-    );
+console.log(
+  `Initializing ${chalk.bgWhite.black(
+    ` ESLint Airbnb config: ${
+      airbnbConfigPkg.includes('base')
+        ? chalk.inverse(' Base ')
+        : chalk.bgMagenta.white(' React ')
+    }`,
+  )}`,
+);
+console.log();
+
+fetchPeerDeps(airbnbConfigPkg)
+  .then((data) => {
     const {
-      data: {
-        collected: {
-          metadata: { version, peerDependencies },
-        },
-      },
-    } = response;
-    return npmInstall(pkgName, peerDependencies, version);
-  } catch (error) {
-    logError(error);
-  }
-};
+      pkgData: { name, version },
+      peerDeps,
+    } = data;
 
-export { getPeerDeps };
+    logPkgs([
+      {
+        name: 'ESLint config',
+        pkgs: `${name}@${version}`,
+      },
+      {
+        name: 'Peer Dependencies',
+        pkgs: peerDeps,
+      },
+      {
+        name: 'User-specified packages',
+        pkgs: userPkgs,
+      },
+    ]);
+
+    const pkgs = createPkgList(
+      [name, version],
+      [peerDeps, 'latest'],
+      [userPkgs, 'latest'],
+    );
+
+    if (pkgs?.length > 0) {
+      console.log('Installing packages...');
+      install(pkgs);
+    } else {
+      logWarning(
+        `No packages were installed in association with: ${airbnbConfigPkg}. This is most likely due to an error fetching and installing the dependencies. Please review any error messages and try again if this is an unexpected result.`,
+      );
+    }
+  })
+  .catch((error) => {
+    logError(error);
+  });

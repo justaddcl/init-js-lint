@@ -4,6 +4,8 @@ I was tired of trying to remember all the packages and peer dependencies I neede
 
 Check out this project on [NPMjs.com](https://www.npmjs.com/package/@justaddcl/init-js-lint)
 
+![npm (scoped)](https://img.shields.io/npm/v/@justaddcl/init-js-lint?style=flat-square&logo=npm) ![NPM](https://img.shields.io/npm/l/@justaddcl/init-js-lint?style=flat-square&logo=github) ![Travis (.org)](https://img.shields.io/travis/justaddcl/init-js-lint?style=flat-square&logo=travis) ![GitHub repo size](https://img.shields.io/github/repo-size/justaddcl/init-js-lint?style=flat-square&logo=github) ![npm](https://img.shields.io/npm/dt/@justaddcl/init-js-lint?style=flat-square&logo=npm)
+
 ## What it installs
 
 - Airbnb's ESLint config (either base or with react depending on supplied argument)
